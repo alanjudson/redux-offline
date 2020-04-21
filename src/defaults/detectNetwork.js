@@ -1,4 +1,5 @@
 /* global window */
+var _netInfo = require('@react-native-community/netinfo');
 
 const handle = (callback, online) => {
   // NetInfo is not supported in browsers, hence we only pass online status

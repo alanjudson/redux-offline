@@ -1,5 +1,6 @@
 /* eslint no-underscore-dangle: 0 */
-import { AppState, NetInfo } from 'react-native'; // eslint-disable-line
+import { AppState } from 'react-native'; // eslint-disable-line
+var _netInfo = require('@react-native-community/netinfo');
 
 class LegacyDetectNetwork {
   constructor(callback) {
@@ -65,7 +66,7 @@ class LegacyDetectNetwork {
    */
   _setIsConnectionExpensive = async () => {
     try {
-      this._isConnectionExpensive = await NetInfo.isConnectionExpensive();
+      this._isConnectionExpensive = await _netInfo.isConnectionExpensive();
     } catch (err) {
       // err means that isConnectionExpensive is not supported in iOS
       this._isConnectionExpensive = null;
@@ -90,7 +91,7 @@ class LegacyDetectNetwork {
    * @private
    */
   _init = async () => {
-    const reach = await NetInfo.fetch();
+    const reach = await _netInfo.fetch();
     if (this._shouldInitUpdateReach) {
       this._update(reach);
     }
@@ -119,13 +120,13 @@ class LegacyDetectNetwork {
    * @private
    */
   _addListeners() {
-    NetInfo.addEventListener('change', reach => {
+    _netInfo.addEventListener('change', reach => {
       this._setShouldInitUpdateReach(false);
       this._update(reach);
     });
     AppState.addEventListener('change', async () => {
       this._setShouldInitUpdateReach(false);
-      const reach = await NetInfo.fetch();
+      const reach = await _netInfo.fetch();
       this._update(reach);
     });
   }

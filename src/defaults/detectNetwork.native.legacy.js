@@ -107,9 +107,8 @@ class LegacyDetectNetwork {
    * @private
    */
   _update = reach => {
-    const normalizedReach = reach.toUpperCase();
-    if (this._hasChanged(normalizedReach)) {
-      this._setReach(normalizedReach);
+    if (this._hasChanged(reach)) {
+      this._setReach(reach);
       this._dispatch();
     }
   };
